@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev:turbo": "next dev --turbopack",
+    "cache:clear": "rimraf .next node_modules && npm install",
+    "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.15.4",

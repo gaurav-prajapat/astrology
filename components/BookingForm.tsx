@@ -167,23 +167,23 @@ export default function BookingForm() {
   }
 
   return (
-    <section id="booking" className="py-20 bg-white dark:bg-gray-900">
+    <section id="booking" className="py-12 sm:py-16 md:py-20 bg-white dark:bg-gray-900">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-saffron-600 dark:text-saffron-400 mb-4">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-saffron-600 dark:text-saffron-400 mb-3 sm:mb-4">
             {t('Book Your Ritual', 'अपना अनुष्ठान बुक करें')}
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400">
             {t('Complete the form below to book your sacred ritual', 'अपने पवित्र अनुष्ठान को बुक करने के लिए नीचे दिया गया फॉर्म भरें')}
           </p>
         </div>
 
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <div className="flex items-center justify-between max-w-md mx-auto">
             {[1, 2, 3].map((num) => (
               <div key={num} className="flex items-center">
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
+                  className={`w-8 sm:w-9 md:w-10 h-8 sm:h-9 md:h-10 rounded-full flex items-center justify-center font-semibold text-sm sm:text-base ${
                     step >= num
                       ? 'bg-gradient-to-r from-saffron-500 to-gold-500 text-white'
                       : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
@@ -193,7 +193,7 @@ export default function BookingForm() {
                 </div>
                 {num < 3 && (
                   <div
-                    className={`w-16 h-1 ${
+                    className={`w-12 sm:w-14 md:w-16 h-1 ${
                       step > num ? 'bg-saffron-500' : 'bg-gray-200 dark:bg-gray-700'
                     }`}
                   />
@@ -203,7 +203,7 @@ export default function BookingForm() {
           </div>
         </div>
 
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 shadow-xl">
+        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl sm:rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl">
           <AnimatePresence mode="wait">
             {step === 1 && (
               <motion.div
@@ -219,7 +219,7 @@ export default function BookingForm() {
                   {services.map((service) => (
                     <label
                       key={service.id}
-                      className={`block p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                      className={`block p-3 sm:p-4 border-2 rounded-lg cursor-pointer transition-all ${
                         bookingData.serviceId === service.id
                           ? 'border-saffron-500 bg-saffron-50 dark:bg-saffron-900/20'
                           : 'border-gray-200 dark:border-gray-700 hover:border-saffron-300'
@@ -238,14 +238,14 @@ export default function BookingForm() {
                       />
                       <div className="flex justify-between items-center">
                         <div>
-                          <div className="font-semibold text-gray-900 dark:text-white">
+                          <div className="font-semibold text-gray-900 dark:text-white text-sm sm:text-base">
                             {language === 'en' ? service.name_en : service.name_hi}
                           </div>
-                          <div className="text-sm text-gray-600 dark:text-gray-400">
+                          <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                             {service.duration_minutes} {t('minutes', 'मिनट')}
                           </div>
                         </div>
-                        <div className="text-lg font-bold text-saffron-600 dark:text-saffron-400">
+                        <div className="text-base sm:text-lg font-bold text-saffron-600 dark:text-saffron-400">
                           ₹{service.base_price.toLocaleString()}
                         </div>
                       </div>
@@ -278,7 +278,7 @@ export default function BookingForm() {
                         setBookingData({ ...bookingData, customerName: e.target.value });
                         setErrors({ ...errors, customerName: '' });
                       }}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm sm:text-base"
                       placeholder={t('Enter your full name', 'अपना पूरा नाम दर्ज करें')}
                     />
                     {errors.customerName && <p className="text-red-500 text-sm mt-1">{errors.customerName}</p>}
@@ -295,7 +295,7 @@ export default function BookingForm() {
                         setBookingData({ ...bookingData, customerEmail: e.target.value });
                         setErrors({ ...errors, customerEmail: '' });
                       }}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm sm:text-base"
                       placeholder={t('Enter your email', 'अपना ईमेल दर्ज करें')}
                     />
                     {errors.customerEmail && <p className="text-red-500 text-sm mt-1">{errors.customerEmail}</p>}
@@ -312,7 +312,7 @@ export default function BookingForm() {
                         setBookingData({ ...bookingData, customerPhone: e.target.value });
                         setErrors({ ...errors, customerPhone: '' });
                       }}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm sm:text-base"
                       placeholder={t('Enter your phone number', 'अपना फ़ोन नंबर दर्ज करें')}
                     />
                     {errors.customerPhone && <p className="text-red-500 text-sm mt-1">{errors.customerPhone}</p>}
@@ -332,9 +332,9 @@ export default function BookingForm() {
                   {t('Ritual Details', 'अनुष्ठान विवरण')}
                 </h3>
                 <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                      <label className="block text-sm font-medium mb-1.5 sm:mb-2 text-gray-700 dark:text-gray-300">
                         {t('Preferred Date', 'पसंदीदा तिथि')} *
                       </label>
                       <input
@@ -345,13 +345,12 @@ export default function BookingForm() {
                           setErrors({ ...errors, preferredDate: '' });
                         }}
                         min={new Date().toISOString().split('T')[0]}
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm sm:text-base"
                       />
-                      {errors.preferredDate && <p className="text-red-500 text-sm mt-1">{errors.preferredDate}</p>}
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                      <label className="block text-sm font-medium mb-1.5 sm:mb-2 text-gray-700 dark:text-gray-300">
                         {t('Preferred Time', 'पसंदीदा समय')} *
                       </label>
                       <input
@@ -361,14 +360,13 @@ export default function BookingForm() {
                           setBookingData({ ...bookingData, preferredTime: e.target.value });
                           setErrors({ ...errors, preferredTime: '' });
                         }}
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm sm:text-base"
                       />
-                      {errors.preferredTime && <p className="text-red-500 text-sm mt-1">{errors.preferredTime}</p>}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium mb-1.5 sm:mb-2 text-gray-700 dark:text-gray-300">
                       {t('Location/Address', 'स्थान/पता')} *
                     </label>
                     <textarea
@@ -378,21 +376,21 @@ export default function BookingForm() {
                         setErrors({ ...errors, location: '' });
                       }}
                       rows={3}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm sm:text-base"
                       placeholder={t('Enter the location where ritual will be performed', 'वह स्थान दर्ज करें जहां अनुष्ठान किया जाएगा')}
                     />
                     {errors.location && <p className="text-red-500 text-sm mt-1">{errors.location}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
+                    <label className="block text-sm font-medium mb-1.5 sm:mb-2 text-gray-700 dark:text-gray-300">
                       {t('Special Notes (Optional)', 'विशेष नोट (वैकल्पिक)')}
                     </label>
                     <textarea
                       value={bookingData.specialNotes}
                       onChange={(e) => setBookingData({ ...bookingData, specialNotes: e.target.value })}
                       rows={3}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-saffron-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm sm:text-base"
                       placeholder={t('Any special requirements or notes', 'कोई विशेष आवश्यकताएं या नोट्स')}
                     />
                   </div>
@@ -414,11 +412,11 @@ export default function BookingForm() {
             )}
           </AnimatePresence>
 
-          <div className="flex justify-between mt-8">
+          <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4 mt-6 sm:mt-8">
             {step > 1 && (
               <button
                 onClick={prevStep}
-                className="px-6 py-3 border-2 border-saffron-500 text-saffron-600 dark:text-saffron-400 rounded-lg font-semibold hover:bg-saffron-50 dark:hover:bg-saffron-900/20 transition-all flex items-center space-x-2"
+                className="px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 border-2 border-saffron-500 text-saffron-600 dark:text-saffron-400 rounded-lg font-semibold hover:bg-saffron-50 dark:hover:bg-saffron-900/20 transition-all flex items-center space-x-1.5 sm:space-x-2 text-sm sm:text-base"
               >
                 <FiArrowLeft />
                 <span>{t('Previous', 'पिछला')}</span>
@@ -428,7 +426,7 @@ export default function BookingForm() {
             {step < 3 ? (
               <button
                 onClick={nextStep}
-                className="ml-auto px-6 py-3 bg-gradient-to-r from-saffron-500 to-gold-500 text-white rounded-lg font-semibold hover:from-saffron-600 hover:to-gold-600 transition-all flex items-center space-x-2"
+                className="ml-auto sm:ml-0 px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-saffron-500 to-gold-500 text-white rounded-lg font-semibold hover:from-saffron-600 hover:to-gold-600 transition-all flex items-center space-x-1.5 sm:space-x-2 text-sm sm:text-base"
               >
                 <span>{t('Next', 'अगला')}</span>
                 <FiArrowRight />
@@ -437,7 +435,7 @@ export default function BookingForm() {
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="ml-auto px-6 py-3 bg-gradient-to-r from-saffron-500 to-gold-500 text-white rounded-lg font-semibold hover:from-saffron-600 hover:to-gold-600 transition-all flex items-center space-x-2 disabled:opacity-50"
+                className="ml-auto sm:ml-0 px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-saffron-500 to-gold-500 text-white rounded-lg font-semibold hover:from-saffron-600 hover:to-gold-600 transition-all flex items-center space-x-1.5 sm:space-x-2 text-sm sm:text-base disabled:opacity-50"
               >
                 {loading ? (
                   <>
