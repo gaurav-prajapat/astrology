@@ -28,7 +28,6 @@ export default function Navigation() {
     { id: 'about', label: t('About', 'हमारे बारे में'), href: '#about' },
     { id: 'gallery', label: t('Gallery', 'गैलरी'), href: '#gallery' },
     { id: 'contact', label: t('Contact', 'संपर्क करें'), href: '#contact' },
-    { id: 'admin', label: t('Admin', 'एडमिन'), href: '/admin' },
   ];
 
   const handleNavClick = (item: typeof navItems[0]) => {
