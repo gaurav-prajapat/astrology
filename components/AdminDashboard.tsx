@@ -1331,8 +1331,8 @@ export default function AdminDashboard() {
                                     pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
                                     approved: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
                                     rejected: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
-                                  }[testimonial.status] || 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'}`}>
-                                    {t(testimonial.status.charAt(0).toUpperCase() + testimonial.status.slice(1), testimonial.status === 'pending' ? 'लंबित' : testimonial.status === 'approved' ? 'अनुमोदित' : 'अस्वीकृत')}
+                                  }[testimonial.status || 'pending'] || 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'}`}>
+                                    {t((testimonial.status || 'pending').charAt(0).toUpperCase() + (testimonial.status || 'pending').slice(1), (testimonial.status || 'pending') === 'pending' ? 'लंबित' : (testimonial.status || 'pending') === 'approved' ? 'अनुमोदित' : 'अस्वीकृत')}
                                   </span>
                                   {testimonial.verified && (
                                     <span className="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
