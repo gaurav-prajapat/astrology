@@ -70,6 +70,12 @@ export type Testimonial = {
   review_hi: string;
   ritual_name: string;
   is_featured: boolean;
+  email: string;
+  phone: string;
+  service_used: string;
+  status: string;
+  verified: boolean;
+  response: string;
   created_at: string;
 };
 
@@ -112,6 +118,61 @@ export type CarouselItem = {
   link: string;
   is_active: boolean;
   sort_order: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type GalleryImage = {
+  id: string;
+  title_en: string;
+  title_hi: string;
+  image_url: string;
+  description_en: string;
+  description_hi: string;
+  category: string;
+  sort_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type StaffRole = {
+  id: string;
+  name_en: string;
+  name_hi: string;
+  description_en: string;
+  description_hi: string;
+  permissions: string[] | string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
+export type StaffMember = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string;
+  role_id: string;
+  password_hash: string;
+  avatar_url: string;
+  is_active: boolean;
+  last_login: string;
+  created_at: string;
+  updated_at: string;
+  role?: StaffRole;
+};
+
+export type SiteSetting = {
+  id: string;
+  setting_key: string;
+  setting_value: any;
+  setting_type: 'string' | 'number' | 'boolean' | 'json';
+  description_en: string;
+  description_hi: string;
+  category: string;
+  is_public: boolean;
   created_at: string;
   updated_at: string;
 };

@@ -20,6 +20,26 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Admin Panel Setup
+
+To access the admin panel, visit [http://localhost:3000/admin](http://localhost:3000/admin).
+
+### Initial Setup
+
+1. **Database Migration**: Before using the admin panel, you need to run the database migrations to create the necessary tables (staff_members, staff_roles, etc.). See `supabase/migrations/` folder.
+
+2. **Environment Variables**: Add the following to your `.env.local` file:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+   NEXT_PUBLIC_ADMIN_CREATION_TOKEN=your_secure_token
+   ```
+
+3. **Access Admin Panel**: 
+   - For development: Use `admin@gmail.com` / `admin123`
+   - To create new admin accounts: Use the admin signup form at `/admin/signup`
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
