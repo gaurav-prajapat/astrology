@@ -261,7 +261,7 @@ export default function About() {
 
                     {/* Quote Icon */}
                     <div className="absolute top-6 left-6 text-8xl sm:text-9xl text-amber-500/10 dark:text-amber-400/10 font-serif leading-none">
-                      "
+                      &quot;
                     </div>
 
                     <div className="relative">
