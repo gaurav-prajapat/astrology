@@ -5,8 +5,14 @@ const createSupabaseClient = () => {
     return null;
   }
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDMyODQwMDAsImV4cCI6MTk1ODg2MDAwMH0.placeholder';
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // If environment variables are not set, return null to prevent requests to placeholder URLs
+  if (!supabaseUrl || !supabaseAnonKey || supabaseUrl.includes('placeholder')) {
+    console.warn('Supabase environment variables not configured. Client will not be initialized.');
+    return null;
+  }
 
   return createClient(supabaseUrl, supabaseAnonKey);
 };
@@ -26,7 +32,17 @@ export const supabase = new Proxy({} as SupabaseClient, {
     if (client && prop in client) {
       return (client as any)[prop];
     }
-    return undefined;
+    // Return a function that handles the operation gracefully when client is not available
+    return function(...args: any[]) {
+      console.warn(`Supabase client not available. Cannot execute: ${String(prop)}`);
+      // Return a promise that resolves to an object with error state
+      return Promise.resolve({
+        data: null,
+        error: { message: 'Supabase client not configured', code: 'CLIENT_NOT_CONFIGURED' },
+        status: 500,
+        count: null
+      });
+    };
   }
 });
 

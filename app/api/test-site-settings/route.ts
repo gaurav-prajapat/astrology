@@ -2,10 +2,38 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 
 export async function GET() {
+  // Check if environment variables are available
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  
+  if (!supabaseUrl || !supabaseKey) {
+    console.error('Supabase configuration missing');
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Supabase configuration is missing. Please set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY environment variables.',
+      details: 'Environment variables not configured'
+    }, { status: 500 });
+  }
+  
+  // Check if we're in a build environment where Supabase may not be available
+  const isBuildEnv = process.env.NEXT_PHASE === 'phase-production-build';
+  
+  if (isBuildEnv) {
+    // Return a mock response during build time
+    console.log('Build environment detected, returning mock data');
+    return NextResponse.json({ 
+      success: true, 
+      data: [],
+      count: 0,
+      is_mock: true,
+      message: 'Mock data returned during build time'
+    });
+  }
+  
   // Create Supabase client inside the function to avoid build-time issues
   const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    supabaseUrl,
+    supabaseKey
   );
   try {
     console.log('Testing site settings fetch...');

@@ -40,7 +40,7 @@ export default function OverviewTab({
     },
     {
       icon: <FiSettings />,
-      value: services.filter((s) => s.is_active).length,
+      value: services?.filter((s) => s.is_active).length || 0,
       title: t('Active Services', 'सक्रिय सेवाएं'),
       color: 'green' as const,
     },
@@ -52,7 +52,7 @@ export default function OverviewTab({
     },
     {
       icon: <FiUser />,
-      value: astrologers.filter((a) => a.is_active).length,
+      value: astrologers?.filter((a) => a.is_active).length || 0,
       title: t('Astrologers', 'ज्योतिषी'),
       color: 'purple' as const,
     },
@@ -99,7 +99,7 @@ export default function OverviewTab({
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-600 dark:text-gray-400">{t('Featured', 'विशेष')}</span>
-              <span className="font-bold text-indigo-600">{videos.filter((v) => v.is_featured).length}</span>
+              <span className="font-bold text-indigo-600">{videos?.filter((v) => v.is_featured).length || 0}</span>
             </div>
           </div>
         </motion.div>
@@ -121,7 +121,7 @@ export default function OverviewTab({
             </div>
             <div className="flex justify-between items-center">
               <span className="text-gray-600 dark:text-gray-400">{t('Active', 'सक्रिय')}</span>
-              <span className="font-bold text-teal-600">{carouselItems.filter((c) => c.is_active).length}</span>
+              <span className="font-bold text-teal-600">{carouselItems?.filter((c) => c.is_active).length || 0}</span>
             </div>
           </div>
         </motion.div>

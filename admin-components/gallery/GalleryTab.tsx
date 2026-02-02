@@ -24,8 +24,8 @@ export default function GalleryTab({
 }: GalleryTabProps) {
   const { language, t } = useLanguage();
 
-  const activeImages = images.filter(img => img.is_active);
-  const inactiveImages = images.filter(img => !img.is_active);
+  const activeImages = images?.filter(img => img.is_active) || [];
+  const inactiveImages = images?.filter(img => !img.is_active) || [];
 
   return (
     <motion.div

@@ -95,7 +95,7 @@ export default function AdminSignupPanel() {
           lastName: formData.lastName,
           email: formData.email,
           password: formData.password,
-          role_id: '1' // Default to Administrator role
+          role_name: 'Administrator' // Default to Administrator role
         }),
       });
 

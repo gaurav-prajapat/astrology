@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse the request body
-    const { firstName, lastName, email, password, role_id = '1' } = await request.json();
+    const { firstName, lastName, email, password, role_name = 'Administrator' } = await request.json();
 
     // Validate input
     if (!firstName || !lastName || !email || !password) {
@@ -56,19 +56,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate role_id to ensure it's a valid role
+    // Validate role_name to ensure it's a valid role and get the role ID
     const { data: validRole, error: roleError } = await supabase
       .from('staff_roles')
       .select('id')
-      .eq('id', role_id)
+      .eq('name_en', role_name)
       .single();
 
     if (roleError || !validRole) {
       return Response.json(
-        { error: 'Invalid role specified' },
+        { error: `Invalid role specified: ${role_name}` },
         { status: 400 }
       );
     }
+
+    const role_id = validRole.id;
 
     // Check if user already exists in staff_members table
     const { data: existingStaff, error: staffCheckError } = await supabase
@@ -119,7 +121,7 @@ export async function POST(request: NextRequest) {
         first_name: firstName,
         last_name: lastName,
         email,
-        role_id,
+        role_id: role_id,
         is_active: true,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),

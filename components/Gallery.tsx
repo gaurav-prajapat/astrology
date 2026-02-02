@@ -20,16 +20,25 @@ export default function Gallery() {
 
   const fetchGalleryImages = async () => {
     try {
-      const { data, error } = await supabase
+      const response = await supabase
         .from('gallery_images')
         .select('*')
         .eq('is_active', true)
         .order('sort_order', { ascending: true });
 
-      if (error) throw error;
-      setGalleryImages(data || []);
+      // Handle case where supabase client is not configured
+      if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+        console.warn('Gallery: Supabase not configured, using empty array');
+        setGalleryImages([]);
+        return;
+      }
+      
+      if (response.error) throw response.error;
+      setGalleryImages(response.data || []);
     } catch (error) {
       console.error('Error fetching gallery images:', error);
+      // Ensure we set an empty array to prevent downstream filter errors
+      setGalleryImages([]);
     } finally {
       setLoading(false);
     }

@@ -24,10 +24,10 @@ export default function BookingsTab({
 }: BookingsTabProps) {
   const { language, t } = useLanguage();
 
-  const pendingBookings = bookings.filter(b => b.status === 'pending');
-  const confirmedBookings = bookings.filter(b => b.status === 'confirmed');
-  const completedBookings = bookings.filter(b => b.status === 'completed');
-  const cancelledBookings = bookings.filter(b => b.status === 'cancelled');
+  const pendingBookings = bookings?.filter(b => b.status === 'pending') || [];
+  const confirmedBookings = bookings?.filter(b => b.status === 'confirmed') || [];
+  const completedBookings = bookings?.filter(b => b.status === 'completed') || [];
+  const cancelledBookings = bookings?.filter(b => b.status === 'cancelled') || [];
 
   const getStatusColor = (status: string) => {
     switch (status) {

@@ -24,9 +24,9 @@ export default function TestimonialsTab({
 }: TestimonialsTabProps) {
   const { language, t } = useLanguage();
 
-  const pendingTestimonials = testimonials.filter(t => t.status === 'pending');
-  const approvedTestimonials = testimonials.filter(t => t.status === 'approved');
-  const rejectedTestimonials = testimonials.filter(t => t.status === 'rejected');
+  const pendingTestimonials = testimonials?.filter(t => t.status === 'pending') || [];
+  const approvedTestimonials = testimonials?.filter(t => t.status === 'approved') || [];
+  const rejectedTestimonials = testimonials?.filter(t => t.status === 'rejected') || [];
 
   return (
     <motion.div

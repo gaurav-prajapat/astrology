@@ -110,12 +110,20 @@ export default function AdminDashboard() {
         return;
       }
       
-      const { data, error } = await supabase
+      const response = await supabase
         .from('services')
         .select('*')
         .order('created_at', { ascending: false });
-      if (error) throw error;
-      setServices(data || []);
+      
+      // Handle case where supabase client is not configured
+      if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+        console.warn('AdminDashboard: Supabase not configured, using empty array');
+        setServices([]);
+        return;
+      }
+      
+      if (response.error) throw response.error;
+      setServices(response.data || []);
     } catch (error) {
       console.error('Error fetching services:', error);
       showError('Failed to fetch services');
@@ -152,12 +160,20 @@ export default function AdminDashboard() {
         return;
       }
       
-      const { data, error } = await supabase
+      const response = await supabase
         .from('bookings')
         .select('*')
         .order('created_at', { ascending: false });
-      if (error) throw error;
-      setBookings(data || []);
+      
+      // Handle case where supabase client is not configured
+      if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+        console.warn('AdminDashboard: Supabase not configured, using empty array');
+        setBookings([]);
+        return;
+      }
+      
+      if (response.error) throw response.error;
+      setBookings(response.data || []);
     } catch (error) {
       console.error('Error fetching bookings:', error);
       showError('Failed to fetch bookings');
@@ -195,12 +211,20 @@ export default function AdminDashboard() {
         return;
       }
       
-      const { data, error } = await supabase
+      const response = await supabase
         .from('testimonials')
         .select('*')
         .order('created_at', { ascending: false });
-      if (error) throw error;
-      setTestimonials(data || []);
+      
+      // Handle case where supabase client is not configured
+      if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+        console.warn('AdminDashboard: Supabase not configured, using empty array');
+        setTestimonials([]);
+        return;
+      }
+      
+      if (response.error) throw response.error;
+      setTestimonials(response.data || []);
     } catch (error) {
       console.error('Error fetching testimonials:', error);
       showError('Failed to fetch testimonials');
@@ -233,12 +257,20 @@ export default function AdminDashboard() {
         return;
       }
       
-      const { data, error } = await supabase
+      const response = await supabase
         .from('astrologers')
         .select('*')
         .order('created_at', { ascending: false });
-      if (error) throw error;
-      setAstrologers(data || []);
+      
+      // Handle case where supabase client is not configured
+      if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+        console.warn('AdminDashboard: Supabase not configured, using empty array');
+        setAstrologers([]);
+        return;
+      }
+      
+      if (response.error) throw response.error;
+      setAstrologers(response.data || []);
     } catch (error) {
       console.error('Error fetching astrologers:', error);
       showError('Failed to fetch astrologers');
@@ -274,12 +306,20 @@ export default function AdminDashboard() {
         return;
       }
       
-      const { data, error } = await supabase
+      const response = await supabase
         .from('videos')
         .select('*')
         .order('created_at', { ascending: false });
-      if (error) throw error;
-      setVideos(data || []);
+      
+      // Handle case where supabase client is not configured
+      if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+        console.warn('AdminDashboard: Supabase not configured, using empty array');
+        setVideos([]);
+        return;
+      }
+      
+      if (response.error) throw response.error;
+      setVideos(response.data || []);
     } catch (error) {
       console.error('Error fetching videos:', error);
       showError('Failed to fetch videos');
@@ -313,12 +353,20 @@ export default function AdminDashboard() {
         return;
       }
       
-      const { data, error } = await supabase
+      const response = await supabase
         .from('carousel_items')
         .select('*')
         .order('sort_order', { ascending: true });
-      if (error) throw error;
-      setCarouselItems(data || []);
+      
+      // Handle case where supabase client is not configured
+      if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+        console.warn('AdminDashboard: Supabase not configured, using empty array');
+        setCarouselItems([]);
+        return;
+      }
+      
+      if (response.error) throw response.error;
+      setCarouselItems(response.data || []);
     } catch (error) {
       console.error('Error fetching carousel items:', error);
       showError('Failed to fetch carousel items');
@@ -367,17 +415,24 @@ export default function AdminDashboard() {
       }
       
       // Try fetching roles data
-      const { data, error } = await supabase
+      const response = await supabase
         .from('staff_roles')
         .select('*')
         .order('created_at', { ascending: false });
       
-      console.log('Staff roles data:', data);
-      console.log('Staff roles error:', error);
+      // Handle case where supabase client is not configured
+      if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+        console.warn('AdminDashboard: Supabase not configured, using empty array');
+        setStaffRoles([]);
+        return;
+      }
       
-      if (error) {
+      console.log('Staff roles data:', response.data);
+      console.log('Staff roles error:', response.error);
+      
+      if (response.error) {
         // Check if it's an RLS policy issue
-        if (error.message?.includes('infinite recursion') || error.message?.includes('RLS')) {
+        if (response.error.message?.includes('infinite recursion') || response.error.message?.includes('RLS')) {
           console.log('RLS Policy Issue Detected in staff_roles, using mock data...');
           setStaffRoles([
             {
@@ -405,10 +460,10 @@ export default function AdminDashboard() {
           ]);
           return;
         }
-        throw error;
+        throw response.error;
       }
       
-      setStaffRoles(data || []);
+      setStaffRoles(response.data || []);
     } catch (error) {
       console.error('Error fetching staff roles:', error);
       console.error('Error details:', {
@@ -591,17 +646,24 @@ export default function AdminDashboard() {
       }
       
       // Try fetching settings data
-      const { data, error } = await supabase
+      const response = await supabase
         .from('site_settings')
         .select('*')
         .order('category', { ascending: true });
       
-      console.log('Site settings data:', data);
-      console.log('Site settings error:', error);
+      // Handle case where supabase client is not configured
+      if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+        console.warn('AdminDashboard: Supabase not configured, using empty array');
+        setSiteSettings([]);
+        return;
+      }
       
-      if (error) {
+      console.log('Site settings data:', response.data);
+      console.log('Site settings error:', response.error);
+      
+      if (response.error) {
         // Check if it's an RLS policy issue
-        if (error.message?.includes('infinite recursion') || error.message?.includes('RLS')) {
+        if (response.error.message?.includes('infinite recursion') || response.error.message?.includes('RLS')) {
           console.log('RLS Policy Issue Detected in site_settings, using mock data...');
           setSiteSettings([
             {
@@ -643,10 +705,10 @@ export default function AdminDashboard() {
           ]);
           return;
         }
-        throw error;
+        throw response.error;
       }
       
-      setSiteSettings(data || []);
+      setSiteSettings(response.data || []);
     } catch (error) {
       console.error('Error fetching site settings:', error);
       console.error('Error details:', {
@@ -688,15 +750,22 @@ export default function AdminDashboard() {
         return;
       }
       
-      const { data, error } = await supabase
+      const response = await supabase
         .from('gallery_images')
         .select('*')
         .order('sort_order', { ascending: true });
       
-      console.log('Gallery images data:', data);
-      console.log('Gallery images error:', error);
-      if (error) throw error;
-      setGalleryImages(data || []);
+      // Handle case where supabase client is not configured
+      if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+        console.warn('AdminDashboard: Supabase not configured, using empty array');
+        setGalleryImages([]);
+        return;
+      }
+      
+      console.log('Gallery images data:', response.data);
+      console.log('Gallery images error:', response.error);
+      if (response.error) throw response.error;
+      setGalleryImages(response.data || []);
     } catch (error) {
       console.error('Error fetching gallery images:', error);
       showError('Failed to fetch gallery images');

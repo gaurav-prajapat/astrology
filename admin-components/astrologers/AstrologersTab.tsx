@@ -24,8 +24,8 @@ export default function AstrologersTab({
 }: AstrologersTabProps) {
   const { language, t } = useLanguage();
 
-  const activeAstrologers = astrologers.filter(a => a.is_active);
-  const inactiveAstrologers = astrologers.filter(a => !a.is_active);
+  const activeAstrologers = astrologers?.filter(a => a.is_active) || [];
+  const inactiveAstrologers = astrologers?.filter(a => !a.is_active) || [];
 
   return (
     <motion.div

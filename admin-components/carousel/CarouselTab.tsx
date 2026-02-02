@@ -26,8 +26,8 @@ export default function CarouselTab({
 }: CarouselTabProps) {
   const { language, t } = useLanguage();
 
-  const activeItems = carouselItems.filter(item => item.is_active);
-  const inactiveItems = carouselItems.filter(item => !item.is_active);
+  const activeItems = carouselItems?.filter(item => item.is_active) || [];
+  const inactiveItems = carouselItems?.filter(item => !item.is_active) || [];
 
   return (
     <motion.div

@@ -52,16 +52,25 @@ export default function Carousel() {
 
   const fetchCarouselItems = async () => {
     try {
-      const { data, error } = await supabase
+      const response = await supabase
         .from('carousel_items')
         .select('*')
         .eq('is_active', true)
         .order('created_at', { ascending: true });
 
-      if (error) throw error;
-      setItems(data || []);
+      // Handle case where supabase client is not configured
+      if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+        console.warn('Carousel: Supabase not configured, using empty array');
+        setItems([]);
+        return;
+      }
+      
+      if (response.error) throw response.error;
+      setItems(response.data || []);
     } catch (error) {
       console.error('Error fetching carousel items:', error);
+      // Ensure we set an empty array to prevent downstream filter errors
+      setItems([]);
     } finally {
       setLoading(false);
     }

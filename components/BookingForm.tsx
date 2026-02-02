@@ -1875,8 +1875,22 @@ export default function BookingForm() {
   }, [step]);
 
   const fetchServices = async () => {
-    const { data } = await supabase.from('services').select('*').eq('is_active', true);
-    setServices(data || []);
+    const response = await supabase.from('services').select('*').eq('is_active', true);
+    
+    // Handle case where supabase client is not configured
+    if (response.error?.code === 'CLIENT_NOT_CONFIGURED') {
+      console.warn('BookingForm: Supabase not configured, using empty array');
+      setServices([]);
+      return;
+    }
+    
+    if (response.error) {
+      console.error('Error fetching services:', response.error);
+      setServices([]);
+      return;
+    }
+    
+    setServices(response.data || []);
   };
 
   const validateStep = (currentStep: number): boolean => {
